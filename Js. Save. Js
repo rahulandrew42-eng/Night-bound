@@ -1,0 +1,31 @@
+const SAVE_KEY = "nightbound_save_v1";
+
+function saveGame(state) {
+  try {
+    localStorage.setItem(SAVE_KEY, JSON.stringify(state));
+    toast("Game saved.");
+    return true;
+  } catch (error) {
+    console.error("Save failed:", error);
+    toast("Could not save the game.");
+    return false;
+  }
+}
+
+function loadGame() {
+  try {
+    const raw = localStorage.getItem(SAVE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch (error) {
+    console.error("Load failed:", error);
+    return null;
+  }
+}
+
+function hasSave() {
+  return !!localStorage.getItem(SAVE_KEY);
+}
+
+function deleteSave() {
+  localStorage.removeItem(SAVE_KEY);
+}
